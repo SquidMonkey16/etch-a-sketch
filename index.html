@@ -44,14 +44,10 @@
                 let square = squares[i];
                 
                 square.addEventListener("mouseover", () => {
-                    let opacity = square.getAttribute("data-opacity");
 
-                    if (opacity === null)
-                        square.setAttribute("data-opacity", 0.1);
-                    else
-                        square.setAttribute("data-opacity", +opacity + 0.1);
-
-                    square.style.opacity = square.getAttribute("data-opacity");;
+                    // first value is null, which becomes 0 from +null
+                    square.setAttribute("data-opacity", +square.getAttribute("data-opacity") + 0.1);
+                    square.style.opacity = square.getAttribute("data-opacity");
                 });
             }
         }
