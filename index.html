@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch-a-Sketch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page">
+        <button>Resize</button>
+        <div class="grid"></div>
+    </div>
+    
+    <script>
+        let grid = document.querySelector(".grid")
+        let currSquare;
+        let currRow;
+        let button = document.querySelector("button");
+        let numPerSide = 16;
+        let squares;
+
+        createGrid();
+
+        function createGrid()
+        {
+            for (let i = 0; i < numPerSide; ++i)
+            {
+                currRow = document.createElement("div")
+                currRow.classList.add("row");
+                grid.appendChild(currRow);
+                for (let j = 0; j < numPerSide; ++j)
+                {
+                    currSquare = document.createElement("div");
+                    currSquare.classList.add("square");
+                    currRow.appendChild(currSquare);
+                }
+            }
+
+            squares = document.querySelectorAll(".square");
+
+            for (let i = 0; i < squares.length; ++i)
+            {
+                let square = squares[i];
+                
+                square.addEventListener("mouseover", () => {
+                    let opacity = square.getAttribute("data-opacity");
+
+                    if (opacity === null)
+                        square.setAttribute("data-opacity", 0.1);
+                    else
+                        square.setAttribute("data-opacity", +opacity + 0.1);
+
+                    square.style.opacity = square.getAttribute("data-opacity");;
+                });
+            }
+        }
+
+        function removeGrid(oldNumSide)
+        {
+            for (let i = 0; i < oldNumSide; ++i)
+            {
+                grid.removeChild(grid.lastElementChild);
+            }
+        }
+
+        button.addEventListener("click", () => {
+            let oldNumSide = numPerSide;
+
+            numPerSide = prompt("Enter number of squares per side: (Max 100)");
+            while (numPerSide > 100 || numPerSide < 0)
+            {
+                numPerSide = prompt("Enter number of squares per side: (Max 100)");
+            }
+            
+            if (numPerSide == null || numPerSide == "" || isNaN(numPerSide))
+            {
+                numPerSide = oldNumSide;
+                return;
+            }
+
+            removeGrid(oldNumSide);
+            createGrid();
+        })
+        // THIS IS A SECOND WAY TO ITERATE THROUGH A NODELIST
+
+        // squares.forEach((square) => square.addEventListener("mouseover", () => {
+        //     square.style.backgroundColor = "black";
+        // }))
+    </script>
+</body>
+</html>
