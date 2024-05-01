@@ -53,6 +53,16 @@
                 
                 square.addEventListener("mouseover", () => {
 
+                    if (colored && square.getAttribute("data-colored") == null && square.style.opacity < 1)
+                    {
+                        let r = Math.floor(Math.random() * 256);
+                        let g = Math.floor(Math.random() * 256);
+                        let b = Math.floor(Math.random() * 256);
+
+                        square.setAttribute("data-colored", true);
+                        square.style.backgroundColor = "rgb(" + r + ", " + g + ", " + b + ")";
+                    }
+
                     if (shaded && square.getAttribute("data-opacity") < 1)
                     {
                         // first value is null, which becomes 0 from +null
