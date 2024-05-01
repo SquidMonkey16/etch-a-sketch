@@ -87,6 +87,7 @@
         }
 
         shade.addEventListener("click", () => {
+            shade.classList.toggle("pressed");
             if (shaded == false)
                 shaded = true;
             else
@@ -113,6 +114,7 @@
         })
 
         color.addEventListener("click", () => {
+        color.classList.toggle("pressed");
             if (colored == false)
                 colored = true;
             else
