@@ -8,7 +8,11 @@
 </head>
 <body>
     <div class="page">
-        <button>Resize</button>
+        <div class="buttons">
+            <button class="shade">Shading</button>
+            <button class="resize">Resize</button>
+            <button class="color">Color</button>
+        </div>
         <div class="grid"></div>
     </div>
     
@@ -16,9 +20,13 @@
         let grid = document.querySelector(".grid")
         let currSquare;
         let currRow;
-        let button = document.querySelector("button");
+        let shade = document.querySelector(".shade");
+        let resize = document.querySelector(".resize");
+        let color = document.querySelector(".color");
         let numPerSide = 16;
         let squares;
+        let shaded = false;
+        let colored = false;
 
         createGrid();
 
@@ -45,8 +53,16 @@
                 
                 square.addEventListener("mouseover", () => {
 
-                    // first value is null, which becomes 0 from +null
-                    square.setAttribute("data-opacity", +square.getAttribute("data-opacity") + 0.1);
+                    if (shaded && square.getAttribute("data-opacity") < 1)
+                    {
+                        // first value is null, which becomes 0 from +null
+                        square.setAttribute("data-opacity", +square.getAttribute("data-opacity") + 0.1);
+                    }
+                    else
+                    {
+                        square.setAttribute("data-opacity", 1);
+                        
+                    }
                     square.style.opacity = square.getAttribute("data-opacity");
                 });
             }
@@ -60,7 +76,14 @@
             }
         }
 
-        button.addEventListener("click", () => {
+        shade.addEventListener("click", () => {
+            if (shaded == false)
+                shaded = true;
+            else
+                shaded = false;
+        })
+
+        resize.addEventListener("click", () => {
             let oldNumSide = numPerSide;
 
             numPerSide = prompt("Enter number of squares per side: (Max 100)");
@@ -77,6 +100,13 @@
 
             removeGrid(oldNumSide);
             createGrid();
+        })
+
+        color.addEventListener("click", () => {
+            if (colored == false)
+                colored = true;
+            else
+                colored = false;
         })
         // THIS IS A SECOND WAY TO ITERATE THROUGH A NODELIST
 
